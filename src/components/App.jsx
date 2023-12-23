@@ -1,21 +1,13 @@
 import { Component } from 'react';
 
 import Header from './Header/Header';
-import Counter from './Counter/Counter';
+// import Counter from './Counter/Counter';
 import Modal from './Modal/Modal';
-
+import ToDoList from './TodoList/TodoList';
 class App extends Component {
   state = {
     showModal: false,
   };
-
-  // openShowModal = () => {
-  //   this.setState({ showModal: true });
-  // };
-
-  // closeShowModal = () => {
-  //   this.setState({ showModal: false });
-  // };
 
   toggleShowModal = () => {
     this.setState(prev => ({ showModal: !prev.showModal }));
@@ -27,8 +19,9 @@ class App extends Component {
     return (
       <div className="container">
         <Header toggleShowModal={this.toggleShowModal} />
-        <Counter />
+        {/* <Counter /> */}
         {showModal && <Modal toggleShowModal={this.toggleShowModal}>Some</Modal>}
+        <ToDoList />
       </div>
     );
   }
