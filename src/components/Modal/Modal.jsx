@@ -12,8 +12,7 @@ const Modal = ({ children, toggleShowModal }) => {
               onClick={toggleShowModal}
             ></button>
           </div>
-          {children}
-          <div className="modal-body"></div>
+          <div className="modal-body">{children}</div>
         </div>
       </div>
     </div>
