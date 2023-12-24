@@ -4,7 +4,7 @@ import Header from './Header/Header';
 import FormLogin from './FormLogin/FormLogin';
 import Modal from './Modal/Modal';
 import { nanoid } from 'nanoid';
-// import ToDoList from './TodoList/TodoList';
+import ToDoList from './TodoList/TodoList';
 class App extends Component {
   state = {
     showModal: false,
@@ -34,7 +34,7 @@ class App extends Component {
             <FormLogin createUser={this.createUser} toggleShowModal={this.toggleShowModal} />
           </Modal>
         )}
-        {/* <ToDoList /> */}
+        <ToDoList />
       </div>
     );
   }
