@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Header from './Header/Header';
 import FormLogin from './FormLogin/FormLogin';
 import Modal from './Modal/Modal';
+import { nanoid } from 'nanoid';
 // import ToDoList from './TodoList/TodoList';
 class App extends Component {
   state = {
@@ -13,6 +14,15 @@ class App extends Component {
     this.setState(prev => ({ showModal: !prev.showModal }));
   };
 
+  createUser = data => {
+    const newUser = {
+      ...data,
+      id: nanoid(),
+    };
+
+    console.log(newUser);
+  };
+
   render() {
     const { showModal } = this.state;
 
@@ -21,7 +31,7 @@ class App extends Component {
         <Header toggleShowModal={this.toggleShowModal} />
         {showModal && (
           <Modal toggleShowModal={this.toggleShowModal}>
-            <FormLogin />
+            <FormLogin createUser={this.createUser} toggleShowModal={this.toggleShowModal} />
           </Modal>
         )}
         {/* <ToDoList /> */}

@@ -4,15 +4,27 @@ class FormLogin extends Component {
   state = {
     email: '',
     password: '',
+    isChecked: false,
   };
+
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.createUser({ email: this.state.email, password: this.state.password });
+    this.props.toggleShowModal();
+  };
+
+  handleCheckout = () => {
+    this.setState({ isChecked: !this.state.isChecked });
   };
 
   render() {
     return (
       <>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -44,12 +56,18 @@ class FormLogin extends Component {
             />
           </div>
           <div className="mb-3 form-check">
-            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+              checked={this.state.isChecked}
+              onChange={this.handleCheckout}
+            />
             <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
+              I'm agree
             </label>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" disabled={!this.state.isChecked}>
             Submit
           </button>
         </form>
