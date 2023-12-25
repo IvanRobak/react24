@@ -7,7 +7,24 @@ import { nanoid } from 'nanoid';
 class ToDoList extends Component {
   state = {
     todoList: todo,
+    isDelete: false,
+    isCreate: false,
   };
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.todoList.length > this.state.todoList.length) {
+      this.setState({ isDelete: true });
+      setTimeout(() => {
+        this.setState({ isDelete: false });
+      }, 1500);
+    }
+    if (prevState.todoList.length < this.state.todoList.length) {
+      this.setState({ isCreate: true });
+      setTimeout(() => {
+        this.setState({ isCreate: false });
+      }, 1500);
+    }
+  }
 
   handleCheckCompleted = id => {
     this.setState(prevState => {
@@ -39,6 +56,16 @@ class ToDoList extends Component {
     return (
       <>
         <h1>My To-Do list</h1>
+        {this.state.isDelete && (
+          <div className="alert alert-danger" role="alert">
+            To-do delete!
+          </div>
+        )}
+        {this.state.isCreate && (
+          <div className="alert alert-success" role="alert">
+            To-do create successfully!
+          </div>
+        )}
         <FormTodo addTodo={this.addTodo} />
         <ul className="list-group list-group-flush">
           {this.state.todoList.map(todo => (

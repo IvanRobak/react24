@@ -19,6 +19,7 @@ const ToDo = ({ todo, handleCheckCompleted, handleDelete }) => {
             className="btn-close"
             aria-label="Close"
             onClick={() => handleDelete(todo.id)}
+            disabled={!todo.completed}
           ></button>
         </div>
       </div>
