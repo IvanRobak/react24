@@ -1,42 +1,46 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 
-class Modal extends Component {
-  state = {};
+import { useEffect } from 'react';
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.handlePressEsc);
-  }
+const Modal = ({ children, toggleShowModal }) => {
+  useEffect(() => {
+    const handlePressEsc = e => {
+      console.log('mount', Date.now());
+      if (e.code === 'Escape') toggleShowModal();
+    };
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handlePressEsc);
-  }
+    window.addEventListener('keydown', handlePressEsc);
+    return () => {
+      window.removeEventListener('keydown', handlePressEsc);
+    };
+  }, [toggleShowModal]);
 
-  handlePressEsc = e => {
-    console.log('mount', Date.now());
-    if (e.code === 'Escape') this.props.toggleShowModal();
-  };
+  // componentDidMount() {
+  //   window.addEventListener('keydown', handlePressEsc);
+  // }
 
-  render() {
-    const { children, toggleShowModal } = this.props;
-    return (
-      <div className="modal fade show" style={{ display: 'block', backdropFilter: 'blur(5px)' }}>
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title"> Modal</h5>
-              <button
-                type="button"
-                className="btn-close"
-                aria-label="Close"
-                onClick={toggleShowModal}
-              ></button>
-            </div>
-            <div className="modal-body">{children}</div>
+  // componentWillUnmount() {
+  //   window.removeEventListener('keydown', handlePressEsc);
+  // }
+
+  return (
+    <div className="modal fade show" style={{ display: 'block', backdropFilter: 'blur(5px)' }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title"> Modal</h5>
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={toggleShowModal}
+            ></button>
           </div>
+          <div className="modal-body">{children}</div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Modal;

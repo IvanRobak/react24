@@ -1,23 +1,21 @@
-import { Component } from 'react';
+import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import Header from './Header/Header';
 import FormLogin from './FormLogin/FormLogin';
 import Modal from './Modal/Modal';
 import { nanoid } from 'nanoid';
-// import ToDoList from './TodoList/TodoList';
+import ToDoList from './TodoList/TodoList';
 import Search from './Search/Search';
 import ContentInfo from './ContentInfo/ContentInfo';
-class App extends Component {
-  state = {
-    showModal: false,
-    searchText: '',
-  };
 
-  toggleShowModal = () => {
-    this.setState(prev => ({ showModal: !prev.showModal }));
-  };
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
-  createUser = data => {
+  const toggleShowModal = () => setShowModal(!showModal);
+
+  const createUser = data => {
     const newUser = {
       ...data,
       id: nanoid(),
@@ -26,28 +24,23 @@ class App extends Component {
     console.log(newUser);
   };
 
-  handleSearch = searchText => {
-    this.setState({ searchText });
-  };
+  const handleSearch = searchText => setSearchText(searchText);
 
-  render() {
-    const { showModal } = this.state;
+  return (
+    <div className="container">
+      <Toaster position="top-right" />
+      <Header toggleShowModal={toggleShowModal} />
 
-    return (
-      <div className="container">
-        <Header toggleShowModal={this.toggleShowModal} />
-
-        <Search handleSearch={this.handleSearch} />
-        <ContentInfo searchText={this.state.searchText} />
-        {showModal && (
-          <Modal toggleShowModal={this.toggleShowModal}>
-            <FormLogin createUser={this.createUser} toggleShowModal={this.toggleShowModal} />
-          </Modal>
-        )}
-        {/* <ToDoList /> */}
-      </div>
-    );
-  }
-}
+      {/* <Search handleSearch={handleSearch} /> */}
+      {/* <ContentInfo searchText={searchText} /> */}
+      {showModal && (
+        <Modal toggleShowModal={toggleShowModal}>
+          <FormLogin createUser={createUser} toggleShowModal={toggleShowModal} />
+        </Modal>
+      )}
+      <ToDoList />
+    </div>
+  );
+};
 
 export default App;
