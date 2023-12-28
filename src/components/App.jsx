@@ -1,45 +1,18 @@
-import { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
-
-import Header from './Header/Header';
-import FormLogin from './FormLogin/FormLogin';
-import Modal from './Modal/Modal';
-import { nanoid } from 'nanoid';
-import ToDoList from './TodoList/TodoList';
-import Search from './Search/Search';
-import ContentInfo from './ContentInfo/ContentInfo';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import NewsPage from './pages/NewsPage';
+import ToDoPage from './pages/ToDoPage';
+import Layout from './Layout/Layout';
 
 const App = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [searchText, setSearchText] = useState('');
-
-  const toggleShowModal = () => setShowModal(!showModal);
-
-  const createUser = data => {
-    const newUser = {
-      ...data,
-      id: nanoid(),
-    };
-
-    console.log(newUser);
-  };
-
-  const handleSearch = searchText => setSearchText(searchText);
-
   return (
-    <div className="container">
-      <Toaster position="top-right" />
-      <Header toggleShowModal={toggleShowModal} />
-
-      {/* <Search handleSearch={handleSearch} /> */}
-      {/* <ContentInfo searchText={searchText} /> */}
-      {showModal && (
-        <Modal toggleShowModal={toggleShowModal}>
-          <FormLogin createUser={createUser} toggleShowModal={toggleShowModal} />
-        </Modal>
-      )}
-      <ToDoList />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="news" element={<NewsPage />} />
+        <Route path="todo" element={<ToDoPage />} />
+      </Route>
+    </Routes>
   );
 };
 

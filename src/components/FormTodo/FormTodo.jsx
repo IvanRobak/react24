@@ -11,7 +11,7 @@ class FormTodo extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addToDo(this.state.todo);
+    this.props.addTodo(this.state.todo);
     this.setState({ todo: '' });
   };
 
