@@ -1,14 +1,19 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Counter = () => {
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
+
+  const { total, step } = useSelector(state => state);
+
+  const dispatch = useDispatch();
 
   const handleClickPlus = () => {
-    setTotal(prevTotal => prevTotal + 1);
+    dispatch({ type: 'increment', payload: step });
   };
 
   const handleClickMinus = () => {
-    setTotal(prevState => prevState - 1);
+    dispatch({ type: 'decrement', payload: step });
   };
 
   return (

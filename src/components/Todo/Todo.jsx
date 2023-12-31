@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const ToDo = ({ todo, handleCheckCompleted, handleDelete }) => {
   return (
     <li className="list-group-item">
@@ -11,7 +11,7 @@ const ToDo = ({ todo, handleCheckCompleted, handleDelete }) => {
             checked={todo.completed}
             onChange={() => handleCheckCompleted(todo.id)}
           />
-          {todo.title}
+          <Link to={todo.id}>{todo.title}</Link>
         </div>
         <div className="col">
           <button
