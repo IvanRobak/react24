@@ -1,16 +1,19 @@
-const counterReduser = (state, action) => {
+import { counterInitialState } from './initialState';
+import { DECREMENT, INCREMENT, SETSTEP } from './types';
+
+export const counterReducer = (state = counterInitialState, action) => {
   switch (action.type) {
-    case 'increment':
+    case INCREMENT:
       return {
         ...state,
         total: state.total + action.payload,
       };
-    case 'decrement':
+    case DECREMENT:
       return {
         ...state,
         total: state.total - action.payload,
       };
-    case 'setStep':
+    case SETSTEP:
       return {
         ...state,
         step: action.payload,
@@ -19,5 +22,3 @@ const counterReduser = (state, action) => {
       return state;
   }
 };
-
-export default counterReduser;
