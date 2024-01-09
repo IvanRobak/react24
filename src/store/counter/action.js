@@ -1,5 +1,5 @@
-import { createAction } from '@reduxjs/toolkit';
+// import { createAction } from '@reduxjs/toolkit';
 
-export const increment = createAction('INCREMENT');
-export const decrement = createAction('DECREMENT');
-export const setStep = createAction('SETSTEP');
+// export const increment = createAction('INCREMENT');
+// export const decrement = createAction('DECREMENT');
+// export const setStep = createAction('SETSTEP');
