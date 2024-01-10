@@ -1,17 +1,53 @@
-import { createStore } from 'redux';
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'increment':
-      return {
-        ...state,
-        total: action.payload,
-      };
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-    default:
-      return state;
+axios.defaults.baseURL = '<https://62584f320c918296a49543e7.mockapi.io>';
+
+export const fetchTasks = createAsyncThunk('tasks/fetchAll', async () => {
+  const response = await axios.get('/tasks');
+  return response.data;
+});
+
+import { createSlice } from '@reduxjs/toolkit';
+// Імпортуємо операцію
+import { fetchTasks } from './operations';
+
+const tasksSlice = createSlice({
+  name: 'tasks',
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  // Додаємо обробку зовнішніх екшенів
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTasks.pending, (state, action) => {})
+      .addCase(fetchTasks.fulfilled, (state, action) => {})
+      .addCase(fetchTasks.rejected, (state, action) => {});
+  },
+});
+
+export const tasksReducer = tasksSlice.reducer;
+
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+axios.defaults.baseURL = '<https://62584f320c918296a49543e7.mockapi.io>';
+
+export const fetchTasks = createAsyncThunk(
+  'tasks/fetchAll',
+  // Використовуємо символ підкреслення як ім'я першого параметра,
+  // тому що в цій операції він нам не потрібен
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get('/tasks');
+      // При успішному запиті повертаємо проміс із даними
+      return response.data;
+    } catch (e) {
+      // При помилці запиту повертаємо проміс
+      // який буде відхилений з текстом помилки
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
-
-const store = createStore(reducer, { total: 2 });
-
-store.dispatch({ type: 'increment', payload: 5 });
+);

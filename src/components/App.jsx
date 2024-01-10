@@ -4,6 +4,7 @@ import NewsPage from './pages/NewsPage';
 import ToDoPage from './pages/ToDoPage';
 import ToDoDetails from './ToDo/ToDoDetails';
 import Layout from './Layout/Layout';
+import ProductsPage from './pages/ProductsPage';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="news" element={<NewsPage />} />
         <Route path="todo" element={<ToDoPage />} />
         <Route path="todo/:id" element={<ToDoDetails />} />
+        <Route path="products" element={<ProductsPage />} />
       </Route>
     </Routes>
   );
